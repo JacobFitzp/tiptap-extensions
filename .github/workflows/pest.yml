@@ -18,7 +18,7 @@ jobs:
       - name: Copy .env
         run: php -r "file_exists('.env') || copy('.env.example', '.env');"
       - name: Install Dependencies
-        run: composer install
+        run: composer install && npm i
       - name: Generate key
         run: php artisan key:generate
       - name: Directory Permissions
@@ -27,6 +27,8 @@ jobs:
         run: |
           mkdir -p database
           touch database/database.sqlite
+      - name: Build assets
+        run: npm run build
       - name: Execute tests (Unit and Feature tests) via Pest
         env:
           DB_CONNECTION: sqlite

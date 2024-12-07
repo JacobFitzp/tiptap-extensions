@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Github\AuthMethod;
+use Github\Client;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -56,5 +58,16 @@ class User extends Authenticatable
     public function extensions(): HasMany
     {
         return $this->hasMany(Extension::class);
+    }
+
+    /**
+     * Get GitHub client instance for this user,
+     */
+    public function github(): Client
+    {
+        $client = new Client;
+        $client->authenticate($this->github_token, authMethod: AuthMethod::ACCESS_TOKEN);
+
+        return $client;
     }
 }

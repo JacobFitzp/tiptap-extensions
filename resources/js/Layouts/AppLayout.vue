@@ -48,7 +48,7 @@
 </template>
 
 <script setup>
-import { Head, Link } from '@inertiajs/vue3';
+import { Head } from '@inertiajs/vue3';
 import { Avatar, Button, InputText, Menu, Menubar } from 'primevue';
 import { ref } from 'vue';
 
@@ -62,6 +62,8 @@ defineProps({
 const items = ref([
     {
         label: 'Home',
+        url: route('home'),
+        active: route().current('home'),
         icon: 'pi pi-home',
     },
     {
@@ -77,10 +79,10 @@ const profileItems = ref([
     },
     {
         label: 'Submit',
+        url: route('extensions.submit'),
     },
     {
         label: 'Logout',
-        as: Link,
         url: route('auth.logout'),
     },
 ]);

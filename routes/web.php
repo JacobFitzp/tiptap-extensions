@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ExtensionController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
@@ -16,6 +17,12 @@ Route::get('/auth/callback', [AuthController::class, 'callback'])
 Route::get('/auth/logout', [AuthController::class, 'logout'])
     ->name('auth.logout');
 
-// Profile routes.
+// Routes requiring authentication.
+Route::middleware('auth')->group(function () {
 
-// Listing routes.
+    // Extension routes.
+    Route::get('extensions/submit', [ExtensionController::class, 'submit'])
+        ->name('extensions.submit');
+    Route::post('extensions/submit', [ExtensionController::class, 'handleSubmit'])
+        ->name('extensions.submit.handle');
+});

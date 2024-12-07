@@ -11,7 +11,9 @@
                     or donating a small amount to keep things running.
                 </p>
                 <div class="mt-6 flex gap-4">
-                    <Button>Submit an extension</Button>
+                    <Button :as="Link" :href="route('extensions.submit')"
+                        >Submit an extension</Button
+                    >
                     <Button
                         severity="secondary"
                         icon="pi pi-github"
@@ -31,5 +33,6 @@
 <script setup>
 import Container from '@/Components/Container.vue';
 import AppLayout from '@/Layouts/AppLayout.vue';
+import { Link } from '@inertiajs/vue3';
 import { Button, Panel } from 'primevue';
 </script>

@@ -1,7 +1,5 @@
 <template></template>
 
 <script setup>
-defineProps({
-
-})
+defineProps({});
 </script>

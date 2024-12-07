@@ -42,10 +42,46 @@ GITHUB_CLIENT_SECRET=yourClientSecret
 In this example `sail` is an alias of `./vendor/bin/sail`
 
 ```shell
+# Copy the example environment file
 cp .env.example .env
 
+# Install dependencies
+composer install
+npm i
+
+# Bring up the docker containers
 sail up
 
+# Setup application
 sail art key:generate
 sail art migrate
+
+# Build assets for development
+# Also watches for changes with hot reload
+npm run dev
 ```
+
+### Adding a moderator
+
+To assign the moderator role to a user locally you first need to sign in with the account you want to use, you can the run the following command:
+
+```shell
+sail art user:moderator text@example.com
+```
+
+Making sure to use the email address associated with your account.
+
+
+## Contribution
+
+### Commands
+
+There are a few composer commands you can use to make life easier:
+
+`composer test` - Runs Pest test suite.
+
+`composer analyse` - Runs Larastan / PHPStan analysis
+
+`composer fix` - Runs Pint and Prettier
+
+You should run all 3 of these commands before commiting any changes.

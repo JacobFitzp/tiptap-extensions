@@ -19,7 +19,7 @@ class ExtensionFactory extends Factory
     {
         return [
             'user_id' => static fn () => User::factory()->create(),
-            'repository' => fake()->word . '/' . fake()->word,
+            'repository' => fake()->word.'/'.fake()->word,
             'title' => fake()->word,
             'description' => fake()->sentence,
             'content' => fake()->text(500),

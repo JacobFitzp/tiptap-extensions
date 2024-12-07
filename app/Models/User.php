@@ -47,8 +47,6 @@ class User extends Authenticatable
 
     /**
      * Has many extensions' relationship.
-     *
-     * @return HasMany
      */
     public function extensions(): HasMany
     {

@@ -12,6 +12,13 @@ class Extension extends Model
 {
     use BelongsToUser, HasFactory;
 
+    protected $fillable = [
+        'title',
+        'repository',
+        'description',
+        'content',
+    ];
+
     /**
      * Has many stars relationship.
      */

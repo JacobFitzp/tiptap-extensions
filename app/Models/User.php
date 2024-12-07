@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -42,5 +43,15 @@ class User extends Authenticatable
             'github_token' => 'encrypted',
             'github_refresh_token' => 'encrypted',
         ];
+    }
+
+    /**
+     * Has many extensions' relationship.
+     *
+     * @return HasMany
+     */
+    public function extensions(): HasMany
+    {
+        return $this->hasMany(Extension::class);
     }
 }

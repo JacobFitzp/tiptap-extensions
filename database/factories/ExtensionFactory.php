@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +18,11 @@ class ExtensionFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'user_id' => static fn () => User::factory()->create(),
+            'repository' => fake()->word . '/' . fake()->word,
+            'title' => fake()->word,
+            'description' => fake()->sentence,
+            'content' => fake()->text(500),
         ];
     }
 }

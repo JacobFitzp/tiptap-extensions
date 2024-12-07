@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Extension;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +19,8 @@ class ExtensionStarFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'user_id' => static fn () => User::factory()->create(),
+            'extension_id' => static fn () => Extension::factory()->create(),
         ];
     }
 }

@@ -10,4 +10,9 @@ use Illuminate\Database\Eloquent\Model;
 class ExtensionStar extends Model
 {
     use BelongsToExtension, BelongsToUser, HasFactory;
+
+    protected $fillable = [
+        'extension_id',
+        'user_id',
+    ];
 }

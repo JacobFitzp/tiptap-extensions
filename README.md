@@ -55,6 +55,7 @@ sail up
 # Setup application
 sail art key:generate
 sail art migrate
+sail art db:seed
 
 # Build assets for development
 # Also watches for changes with hot reload
@@ -70,7 +71,6 @@ sail art user:moderator text@example.com
 ```
 
 Making sure to use the email address associated with your account.
-
 
 ## Contribution
 

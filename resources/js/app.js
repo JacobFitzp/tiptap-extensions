@@ -3,6 +3,7 @@ import './bootstrap';
 
 import { createInertiaApp } from '@inertiajs/vue3';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
+import PrimeVue from 'primevue/config';
 import { createApp, h } from 'vue';
 import { ZiggyVue } from '../../vendor/tightenco/ziggy';
 
@@ -18,6 +19,9 @@ createInertiaApp({
     setup({ el, App, props, plugin }) {
         return createApp({ render: () => h(App, props) })
             .use(plugin)
+            .use(PrimeVue, {
+                theme: 'none',
+            })
             .use(ZiggyVue)
             .mount(el);
     },

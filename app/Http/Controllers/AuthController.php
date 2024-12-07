@@ -27,6 +27,8 @@ class AuthController extends Controller
         $githubUser = Socialite::driver('github')
             ->user();
 
+        ray($githubUser);
+
         // Create or update the user in the database.
         $user = User::updateOrCreate([
             'github_id' => $githubUser->getId(),
@@ -39,8 +41,18 @@ class AuthController extends Controller
         ]);
 
         // Log the user in, remembering them.
-        Auth::login($user, true);
+        auth()->login($user, true);
 
-        return redirect('home');
+        return redirect()->route('home');
+    }
+
+    /**
+     * Logout the current user.
+     */
+    public function logout(): RedirectResponse
+    {
+        Auth::logout();
+
+        return redirect()->route('home');
     }
 }

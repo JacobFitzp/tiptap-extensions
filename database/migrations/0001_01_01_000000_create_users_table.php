@@ -17,7 +17,8 @@ return new class extends Migration
             $table->string('github_id')
                 ->unique();
             $table->text('github_token');
-            $table->text('github_refresh_token');
+            $table->text('github_refresh_token')
+                ->nullable();
 
             $table->string('name');
             $table->string('email')

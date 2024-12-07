@@ -1,4 +1,5 @@
 import forms from '@tailwindcss/forms';
+import primevue from 'tailwindcss-primeui';
 import defaultTheme from 'tailwindcss/defaultTheme';
 
 /** @type {import('tailwindcss').Config} */
@@ -18,5 +19,5 @@ export default {
         },
     },
 
-    plugins: [forms],
+    plugins: [forms, primevue],
 };

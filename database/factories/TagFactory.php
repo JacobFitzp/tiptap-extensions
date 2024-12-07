@@ -17,7 +17,8 @@ class TagFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'label' => fake()->word,
+            'slug' => fake()->slug,
         ];
     }
 }

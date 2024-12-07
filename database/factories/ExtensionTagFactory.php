@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Extension;
+use App\Models\Tag;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +19,8 @@ class ExtensionTagFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'extension_id' => static fn () => Extension::factory()->create(),
+            'tag_id' => static fn () => Tag::factory()->create(),
         ];
     }
 }

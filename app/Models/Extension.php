@@ -6,7 +6,6 @@ use App\Models\Concerns\BelongsToUser;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
 class Extension extends Model
 {
@@ -38,8 +37,8 @@ class Extension extends Model
     /**
      * Has many tags relationship.
      */
-    public function tags(): HasManyThrough
+    public function tags(): HasMany
     {
-        return $this->hasManyThrough(Tag::class, ExtensionTag::class);
+        return $this->hasMany(ExtensionTag::class);
     }
 }

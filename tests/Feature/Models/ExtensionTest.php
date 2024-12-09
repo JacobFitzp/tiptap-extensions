@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Enums\ExtensionType;
 use App\Models\Extension;
 use App\Models\ExtensionReview;
 use App\Models\ExtensionStar;
@@ -55,4 +56,20 @@ it('can get tags relationship', function () {
 
     expect($extension->tags)->toHaveCount(4)
         ->and($extension->tags->modelKeys())->toBe($tags->modelKeys());
+});
+
+it('casts type to enum', function () {
+    $extension = Extension::factory()->create([
+        'type' => ExtensionType::PROJECT,
+    ]);
+
+    expect($extension->type)->toBe(ExtensionType::PROJECT);
+});
+
+it('casts published to boolean', function () {
+    $extension = Extension::factory()->create([
+        'published' => true,
+    ]);
+
+    expect($extension->published)->toBeTrue();
 });

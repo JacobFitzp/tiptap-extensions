@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Enums\ExtensionType;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -20,9 +21,11 @@ class ExtensionFactory extends Factory
         return [
             'user_id' => static fn () => User::factory()->create(),
             'repository' => fake()->word.'/'.fake()->word,
+            'type' => fake()->randomElement(ExtensionType::cases()),
             'title' => fake()->word,
             'description' => fake()->sentence,
             'content' => fake()->text(500),
+            'published' => fake()->boolean,
         ];
     }
 }

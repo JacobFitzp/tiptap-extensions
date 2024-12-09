@@ -49,6 +49,7 @@ class User extends Authenticatable
         return [
             'github_token' => 'encrypted',
             'github_refresh_token' => 'encrypted',
+            'points' => 'integer',
         ];
     }
 
@@ -65,7 +66,8 @@ class User extends Authenticatable
      */
     public function github(): Client
     {
-        $client = new Client;
+        $client = app(Client::class);
+        // Authenticate using the users access token.
         $client->authenticate($this->github_token, authMethod: AuthMethod::ACCESS_TOKEN);
 
         return $client;

@@ -18,12 +18,18 @@ return new class extends Migration
                 ->constrained()
                 ->cascadeOnDelete();
 
+            $table->string('type')
+                ->default('extension');
+
             $table->string('repository')
                 ->unique();
             $table->string('title');
             $table->text('description')
                 ->nullable();
             $table->text('content');
+
+            $table->boolean('published')
+                ->default(false);
 
             $table->timestamps();
         });

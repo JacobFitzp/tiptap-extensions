@@ -11,6 +11,13 @@ class ExtensionReview extends Model
 {
     use BelongsToExtension, BelongsToUser, HasFactory;
 
+    protected $fillable = [
+        'user_id',
+        'extension_id',
+        'comment',
+        'rating',
+    ];
+
     /**
      * Get the attributes that should be cast.
      *

@@ -27,8 +27,6 @@ class AuthController extends Controller
         $githubUser = Socialite::driver('github')
             ->user();
 
-        ray($githubUser);
-
         // Create or update the user in the database.
         $user = User::updateOrCreate([
             'github_id' => $githubUser->getId(),

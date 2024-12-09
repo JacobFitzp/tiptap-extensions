@@ -23,6 +23,6 @@ Route::middleware('auth')->group(function () {
     // Extension routes.
     Route::get('extensions/submit', [ExtensionController::class, 'submit'])
         ->name('extensions.submit');
-    Route::post('extensions/submit', [ExtensionController::class, 'handleSubmit'])
-        ->name('extensions.submit.handle');
+    Route::post('extensions/submit', [ExtensionController::class, 'store'])
+        ->name('extensions.submit.store');
 });

@@ -8,8 +8,10 @@
                         <InputText
                             placeholder="Something awesome"
                             v-model="form.title"
+                            :invalid="form.errors.title"
                             class="w-full"
                         />
+                        <InputError :error="form.errors.title" />
                     </div>
                     <div>
                         <InputLabel field="description">
@@ -17,9 +19,11 @@
                         </InputLabel>
                         <Textarea
                             v-model="form.description"
+                            :invalid="form.errors.description"
                             rows="2"
                             class="w-full"
                         />
+                        <InputError :error="form.errors.description" />
                     </div>
                     <div class="grid grid-cols-2 gap-4">
                         <div>
@@ -28,18 +32,23 @@
                             </InputLabel>
                             <Select
                                 v-model="form.repository"
+                                :invalid="form.errors.repository"
                                 :options="repositoryOptions"
                                 optionLabel="name"
+                                optionValue="code"
                                 placeholder="Select a repository"
                                 class="w-full"
                             />
+                            <InputError :error="form.errors.repository" />
                         </div>
                         <div>
                             <InputLabel field="type"> Type </InputLabel>
                             <Select
                                 v-model="form.type"
+                                :invalid="form.errors.type"
                                 :options="typeOptions"
                                 optionLabel="name"
+                                optionValue="code"
                                 placeholder="Select a type"
                                 class="w-full"
                             >
@@ -54,6 +63,7 @@
                                     </div>
                                 </template>
                             </Select>
+                            <InputError :error="form.errors.type" />
                         </div>
                     </div>
 
@@ -67,11 +77,16 @@
                         <InputLabel field="content"> Content </InputLabel>
 
                         <div class="flex items-center space-x-2">
-                            <ToggleSwitch v-model="form.use_readme" />
+                            <ToggleSwitch
+                                v-model="form.use_readme"
+                                :invalid="form.errors.use_readme"
+                            />
                             <label>
                                 Use repositories <strong>README.md</strong>
                             </label>
                         </div>
+
+                        <InputError :error="form.errors.use_readme" />
 
                         <Message
                             v-if="form.use_readme"
@@ -85,16 +100,20 @@
                         <Textarea
                             v-else
                             v-model="form.content"
+                            :invalid="form.errors.content"
                             placeholder="Add some markdown content here."
                             rows="4"
                             class="mt-4 w-full"
                         />
+
+                        <InputError :error="form.errors.content" />
                     </div>
 
                     <div>
                         <InputLabel field="tags"> Tags </InputLabel>
                         <MultiSelect
                             v-model="form.tags"
+                            :invalid="form.errors.tags"
                             display="chip"
                             :options="tagOptions"
                             optionLabel="name"
@@ -102,9 +121,10 @@
                             :maxSelectedLabels="5"
                             class="w-full"
                         />
+                        <InputError :error="form.errors.tags" />
                     </div>
 
-                    <Button>Submit</Button>
+                    <Button @click="submitForm"> Submit </Button>
                 </form>
             </Panel>
         </Container>
@@ -113,6 +133,7 @@
 
 <script setup>
 import Container from '@/Components/Container.vue';
+import InputError from '@/Components/Form/InputError.vue';
 import InputLabel from '@/Components/Form/InputLabel.vue';
 import AppLayout from '@/Layouts/AppLayout.vue';
 import { useForm } from '@inertiajs/vue3';
@@ -142,7 +163,7 @@ const props = defineProps({
 // Extension creation form.
 const form = useForm({
     title: '',
-    type: 'extension',
+    type: '',
     repository: '',
     description: '',
     use_readme: true,
@@ -182,7 +203,7 @@ const typeOptions = [
         name: 'Package',
         description:
             'Something that works with TipTap, for example a PHP package.',
-        code: 'extension',
+        code: 'package',
     },
     {
         name: 'Project',
@@ -194,6 +215,8 @@ const typeOptions = [
 
 // Submit the creation form.
 const submitForm = () => {
-    form.post(route('extensions.submit.handle'));
+    form.post(route('extensions.submit.store'), {
+        preserveScroll: true,
+    });
 };
 </script>

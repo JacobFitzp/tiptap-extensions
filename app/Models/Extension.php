@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Foundation\Github\Casts\RepositoryCast;
 use App\Models\Concerns\BelongsToUser;
 use App\Models\Enums\ExtensionType;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -29,6 +30,7 @@ class Extension extends Model
     protected function casts(): array
     {
         return [
+            'repository' => RepositoryCast::class,
             'type' => ExtensionType::class,
             'published' => 'boolean',
         ];

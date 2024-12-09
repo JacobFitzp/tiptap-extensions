@@ -1,5 +1,6 @@
 <?php
 
+use App\Foundation\Github\Repository;
 use App\Models\Enums\ExtensionType;
 use App\Models\Extension;
 use App\Models\ExtensionReview;
@@ -18,7 +19,7 @@ it('can create extension', function () {
 
     expect($extension->user_id)->toBe($user->id)
         ->and($extension->title)->toBe('Test Extension')
-        ->and($extension->repository)->toBe('test/fake-extension')
+        ->and($extension->repository->getSlug())->toBe('test/fake-extension')
         ->and($extension->description)->toBe('This is a test extension')
         ->and($extension->content)->toBe('Test content');
 });
@@ -72,4 +73,14 @@ it('casts published to boolean', function () {
     ]);
 
     expect($extension->published)->toBeTrue();
+});
+
+it('casts repository to object', function () {
+    $extension = Extension::factory()->create([
+        'repository' => 'fake/fake-extension',
+    ]);
+
+    expect($extension->repository)->toBeInstanceOf(Repository::class)
+        ->and($extension->repository->owner)->toBe('fake')
+        ->and($extension->repository->name)->toBe('fake-extension');
 });

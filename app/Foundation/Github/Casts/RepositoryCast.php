@@ -18,7 +18,7 @@ class RepositoryCast implements CastsAttributes
     public function set(Model $model, string $key, mixed $value, array $attributes): string
     {
         return $value instanceof Repository
-            ? $value->getSlug()
+            ? $value->slug()
             : $value;
     }
 }

@@ -13,13 +13,15 @@ it('can create extension', function () {
     $extension = $user->extensions()->create([
         'title' => 'Test Extension',
         'repository' => 'test/fake-extension',
+        'slug' => 'test-fake-extension',
         'description' => 'This is a test extension',
         'content' => 'Test content',
     ]);
 
     expect($extension->user_id)->toBe($user->id)
         ->and($extension->title)->toBe('Test Extension')
-        ->and($extension->repository->getSlug())->toBe('test/fake-extension')
+        ->and($extension->repository->full())->toBe('test/fake-extension')
+        ->and($extension->slug)->toBe('test-fake-extension')
         ->and($extension->description)->toBe('This is a test extension')
         ->and($extension->content)->toBe('Test content');
 });

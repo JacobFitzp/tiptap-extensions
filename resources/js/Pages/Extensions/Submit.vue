@@ -113,10 +113,12 @@
                         <InputLabel field="tags"> Tags </InputLabel>
                         <MultiSelect
                             v-model="form.tags"
+                            filter
                             :invalid="form.errors.tags"
                             display="chip"
-                            :options="tagOptions"
-                            optionLabel="name"
+                            :options="tags"
+                            optionLabel="label"
+                            optionValue="slug"
                             placeholder="Select up to 5 tags"
                             :maxSelectedLabels="5"
                             class="w-full"
@@ -177,16 +179,6 @@ const repositoryOptions = computed(() => {
         return {
             name: repository.full_name,
             code: repository.full_name.toLowerCase(),
-        };
-    });
-});
-
-// Tag options.
-const tagOptions = computed(() => {
-    return props.tags.map((tag) => {
-        return {
-            name: tag.label,
-            code: tag.slug,
         };
     });
 });

@@ -36,7 +36,7 @@ class ExtensionPolicy
      */
     public function update(User $user, Extension $extension): bool
     {
-        return false;
+        return $user->id === $extension->user_id;
     }
 
     /**
@@ -44,7 +44,7 @@ class ExtensionPolicy
      */
     public function delete(User $user, Extension $extension): bool
     {
-        return false;
+        return $user->id === $extension->user_id;
     }
 
     /**

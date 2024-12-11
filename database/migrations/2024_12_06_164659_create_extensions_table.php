@@ -23,6 +23,8 @@ return new class extends Migration
 
             $table->string('repository')
                 ->unique();
+            $table->string('slug')
+                ->unique();
             $table->string('title');
             $table->text('description')
                 ->nullable();

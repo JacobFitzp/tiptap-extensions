@@ -11,6 +11,11 @@ class ExtensionTag extends Model
 {
     use BelongsToExtension, HasFactory;
 
+    protected $fillable = [
+        'tag_id',
+        'extension_id',
+    ];
+
     public function tag(): BelongsTo
     {
         return $this->belongsTo(Tag::class);

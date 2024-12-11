@@ -13,12 +13,12 @@ class CreateExtensionRequest extends FormRequest
         return [
             'title' => 'required|string|min:5,max:255',
             'description' => 'required|string|max:1000',
-            'repository' => 'required|string',
+            'repository' => 'required|string|unique:extensions,repository',
             'type' => ['required', Rule::enum(ExtensionType::class)],
             'use_readme' => 'boolean',
             'content' => 'required_if_declined:use_readme',
             'tags' => 'array|max:5',
-            'tags.*' => 'string|exists:tags,slug',
+            'tags.*.slug' => 'string|exists:tags,slug',
         ];
     }
 

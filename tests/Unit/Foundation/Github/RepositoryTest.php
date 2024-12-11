@@ -16,7 +16,12 @@ test('it can parse repository', function (
     ['Fake/Fake-Extension', 'fake', 'fake-extension'],
 ]);
 
+test('it can get full', function () {
+    $repository = Repository::parse('fake/fake-extension');
+    expect($repository->full())->toBe('fake/fake-extension');
+});
+
 test('it can get slug', function () {
     $repository = Repository::parse('fake/fake-extension');
-    expect($repository->getSlug())->toBe('fake/fake-extension');
+    expect($repository->slug())->toBe('fake-fake-extension');
 });

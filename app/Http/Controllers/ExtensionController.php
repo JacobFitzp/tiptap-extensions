@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Foundation\Github\Repository;
 use App\Http\Requests\CreateExtensionRequest;
+use App\Models\Extension;
 use App\Models\Tag;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -22,12 +25,9 @@ class ExtensionController extends Controller
         ]);
     }
 
-    public function store(CreateExtensionRequest $request): void
+    public function store(CreateExtensionRequest $request): RedirectResponse
     {
-        // Get the repository owner and name.
         $repository = Repository::parse($request->validated('repository'));
-
-        // Default to using content provided by the user.
         $content = $request->validated('content');
 
         // Use the repositories README if the user has chosen to.
@@ -35,15 +35,41 @@ class ExtensionController extends Controller
             $content = $request->user()
                 ->github()
                 ->repo()
-                ->readme('');
+                ->readme($repository->owner, $repository->name);
         }
 
+        // Crete the extension and associate it with the user.
         $extension = $request->user()
             ->extensions()
-            ->create($request->only([
-                'title',
-                'description',
+            ->create([
+                'content' => $content,
+                'slug' => $repository->slug(),
+                ...$request->only(['title', 'description', 'repository', 'type']),
+            ]);
 
-            ]));
+        // Attach tags to the extension using pivot.
+        Tag::query()
+            ->whereIn(
+                'slug',
+                Arr::pluck(
+                    $request->input('tags', []),
+                    'slug'
+                )
+            )
+            ->each(function (Tag $tag) use ($extension) {
+                $extension->tags()
+                    ->create(['tag_id' => $tag->id]);
+            });
+
+        // Redirect to the extension management page.
+        return redirect()
+            ->route('extension.manage', $extension->slug);
+    }
+
+    public function manage(Extension $extension): Response
+    {
+        return Inertia::render('Extensions/Manage', [
+            'extension' => $extension,
+        ]);
     }
 }

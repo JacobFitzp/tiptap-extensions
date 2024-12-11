@@ -45,19 +45,37 @@
             </Menubar>
         </div>
 
+        <Container v-if="header" class="mb-6">
+            <h1 class="text-2xl font-bold">{{ header }}</h1>
+            <Breadcrumb
+                v-if="breadcrumbs"
+                :home="{ icon: 'pi pi-home' }"
+                :model="breadcrumbs"
+            />
+        </Container>
+
         <slot />
     </div>
 </template>
 
 <script setup>
+import Container from '@/Components/Container.vue';
 import { Head } from '@inertiajs/vue3';
-import { Avatar, Button, InputText, Menu, Menubar } from 'primevue';
+import { Avatar, Breadcrumb, Button, InputText, Menu, Menubar } from 'primevue';
 import { ref } from 'vue';
 
 defineProps({
     title: {
         type: String,
         required: true,
+    },
+    header: {
+        type: [String, null],
+        default: null,
+    },
+    breadcrumbs: {
+        type: [Array, null],
+        default: null,
     },
 });
 
@@ -78,6 +96,7 @@ const profileMenu = ref();
 const profileItems = ref([
     {
         label: 'Profile',
+        url: route('profile.show'),
     },
     {
         label: 'Submit',

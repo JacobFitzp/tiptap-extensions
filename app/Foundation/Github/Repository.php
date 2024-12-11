@@ -6,9 +6,14 @@ class Repository
 {
     public function __construct(public string $owner, public string $name) {}
 
-    public function getSlug(): string
+    public function full(): string
     {
         return $this->owner.'/'.$this->name;
+    }
+
+    public function slug(): string
+    {
+        return $this->owner.'-'.$this->name;
     }
 
     public static function parse(string $repository): self

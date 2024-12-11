@@ -16,6 +16,7 @@ class Extension extends Model
     protected $fillable = [
         'title',
         'repository',
+        'slug',
         'description',
         'content',
         'type',

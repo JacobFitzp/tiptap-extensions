@@ -2,7 +2,7 @@
 
 namespace App\Policies;
 
-use App\Models\ExtensionTag;
+use App\Foundation\Tags\Models\Tagged;
 use App\Models\User;
 
 class ExtensionTagPolicy
@@ -18,7 +18,7 @@ class ExtensionTagPolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, ExtensionTag $extensionTag): bool
+    public function view(User $user, Tagged $extensionTag): bool
     {
         return false;
     }
@@ -34,7 +34,7 @@ class ExtensionTagPolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, ExtensionTag $extensionTag): bool
+    public function update(User $user, Tagged $extensionTag): bool
     {
         return false;
     }
@@ -42,7 +42,7 @@ class ExtensionTagPolicy
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, ExtensionTag $extensionTag): bool
+    public function delete(User $user, Tagged $extensionTag): bool
     {
         return false;
     }
@@ -50,7 +50,7 @@ class ExtensionTagPolicy
     /**
      * Determine whether the user can restore the model.
      */
-    public function restore(User $user, ExtensionTag $extensionTag): bool
+    public function restore(User $user, Tagged $extensionTag): bool
     {
         return false;
     }
@@ -58,7 +58,7 @@ class ExtensionTagPolicy
     /**
      * Determine whether the user can permanently delete the model.
      */
-    public function forceDelete(User $user, ExtensionTag $extensionTag): bool
+    public function forceDelete(User $user, Tagged $extensionTag): bool
     {
         return false;
     }

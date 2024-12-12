@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\Tag;
+use App\Foundation\Tags\Models\Tag;
 
 it('can create a tag', function () {
     $tag = Tag::create([

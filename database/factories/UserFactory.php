@@ -23,7 +23,7 @@ class UserFactory extends Factory
     public function definition(): array
     {
         return [
-            'github_id' => fake()->randomNumber(),
+            'github_id' => fake()->numberBetween(100000, 999999),
             'name' => fake()->name,
             'email' => fake()->unique()->safeEmail,
             'avatar' => fake()->imageUrl,

@@ -11,6 +11,8 @@ Route::get('/', HomeController::class)
     ->name('home');
 
 // Authentication routes.
+Route::redirect('/login', '/auth/redirect')
+    ->name('login');
 Route::get('/auth/redirect', [AuthController::class, 'redirect'])
     ->name('auth.redirect');
 Route::get('/auth/callback', [AuthController::class, 'callback'])
@@ -29,8 +31,8 @@ Route::middleware('auth')->group(function () {
     Route::get('extensions/submit', [ExtensionController::class, 'submit'])
         ->name('extensions.submit');
     Route::post('extensions/submit', [ExtensionController::class, 'store'])
-        ->name('extensions.submit.store');
+        ->name('extensions.store');
     Route::get('extensions/{extension:slug}/manage', [ExtensionController::class, 'manage'])
         ->can('update,extension')
-        ->name('extension.manage');
+        ->name('extensions.manage');
 });

@@ -10,8 +10,6 @@ class RepositoryCast implements CastsAttributes
 {
     public function get(Model $model, string $key, mixed $value, array $attributes): Repository
     {
-        ray($value);
-
         return Repository::parse($value);
     }
 

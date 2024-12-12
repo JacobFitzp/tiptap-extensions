@@ -1,11 +1,11 @@
 <?php
 
 use App\Foundation\Github\Repository;
+use App\Foundation\Tags\Models\Tagged;
 use App\Models\Enums\ExtensionType;
 use App\Models\Extension;
 use App\Models\ExtensionReview;
 use App\Models\ExtensionStar;
-use App\Models\ExtensionTag;
 use App\Models\User;
 
 it('can create extension', function () {
@@ -53,8 +53,9 @@ it('can get reviews relationship', function () {
 
 it('can get tags relationship', function () {
     $extension = Extension::factory()->create();
-    $tags = ExtensionTag::factory(4)->create([
-        'extension_id' => $extension->id,
+    $tags = Tagged::factory(4)->create([
+        'taggable_id' => $extension->id,
+        'taggable_type' => $extension->getMorphClass(),
     ]);
 
     expect($extension->tags)->toHaveCount(4)

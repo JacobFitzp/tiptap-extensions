@@ -3,12 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Foundation\Github\Repository;
+use App\Foundation\Tags\Models\Tag;
 use App\Http\Requests\CreateExtensionRequest;
 use App\Models\Extension;
-use App\Models\Tag;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Arr;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -48,22 +47,13 @@ class ExtensionController extends Controller
             ]);
 
         // Attach tags to the extension using pivot.
-        Tag::query()
-            ->whereIn(
-                'slug',
-                Arr::pluck(
-                    $request->input('tags', []),
-                    'slug'
-                )
-            )
-            ->each(function (Tag $tag) use ($extension) {
-                $extension->tags()
-                    ->create(['tag_id' => $tag->id]);
-            });
+        $extension->attachTagsFromRequest(
+            $request->validated('tags', [])
+        );
 
         // Redirect to the extension management page.
         return redirect()
-            ->route('extension.manage', $extension->slug);
+            ->route('extensions.manage', $extension->slug);
     }
 
     public function manage(Extension $extension): Response

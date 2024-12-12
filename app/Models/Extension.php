@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Foundation\Github\Casts\RepositoryCast;
+use App\Foundation\Tags\Concerns\Taggable;
 use App\Models\Concerns\BelongsToUser;
 use App\Models\Enums\ExtensionType;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -11,7 +12,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Extension extends Model
 {
-    use BelongsToUser, HasFactory;
+    use BelongsToUser, HasFactory, Taggable;
 
     protected $fillable = [
         'title',
@@ -51,13 +52,5 @@ class Extension extends Model
     public function reviews(): HasMany
     {
         return $this->hasMany(ExtensionReview::class);
-    }
-
-    /**
-     * Has many tags relationship.
-     */
-    public function tags(): HasMany
-    {
-        return $this->hasMany(ExtensionTag::class);
     }
 }

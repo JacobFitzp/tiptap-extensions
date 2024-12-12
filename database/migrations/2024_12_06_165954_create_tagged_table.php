@@ -1,5 +1,6 @@
 <?php
 
+use App\Foundation\Tags\Models\Tag;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -11,14 +12,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('extension_tags', static function (Blueprint $table) {
+        Schema::create('tagged', static function (Blueprint $table) {
             $table->id();
 
-            $table->foreignIdFor(\App\Models\Extension::class)
-                ->constrained()
-                ->cascadeOnDelete();
+            $table->morphs('taggable');
 
-            $table->foreignIdFor(\App\Models\Tag::class)
+            $table->foreignIdFor(Tag::class)
                 ->constrained()
                 ->cascadeOnDelete();
 
@@ -31,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('extension_tags');
+        Schema::dropIfExists('tagged');
     }
 };

@@ -2,15 +2,18 @@
 
 namespace Database\Factories;
 
+use App\Foundation\Tags\Models\Tag;
+use App\Foundation\Tags\Models\Tagged;
 use App\Models\Extension;
-use App\Models\Tag;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\ExtensionTag>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Foundation\Tags\Models\Tagged>
  */
-class ExtensionTagFactory extends Factory
+class TaggedFactory extends Factory
 {
+    protected $model = Tagged::class;
+
     /**
      * Define the model's default state.
      *
@@ -19,7 +22,8 @@ class ExtensionTagFactory extends Factory
     public function definition(): array
     {
         return [
-            'extension_id' => static fn () => Extension::factory()->create(),
+            'taggable_id' => static fn () => Extension::factory()->create(),
+            'taggable_type' => 'extension',
             'tag_id' => static fn () => Tag::factory()->create(),
         ];
     }

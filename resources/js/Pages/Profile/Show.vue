@@ -52,7 +52,7 @@
                                                 :as="Link"
                                                 :href="
                                                     route(
-                                                        'extension.manage',
+                                                        'extensions.manage',
                                                         getSlug(item),
                                                     )
                                                 "

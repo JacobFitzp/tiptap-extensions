@@ -28,8 +28,11 @@ return new class extends Migration
             $table->string('title');
             $table->text('description')
                 ->nullable();
-            $table->text('content');
+            $table->text('content')
+                ->nullable();
 
+            $table->boolean('use_readme')
+                ->default(true);
             $table->boolean('published')
                 ->default(false);
 

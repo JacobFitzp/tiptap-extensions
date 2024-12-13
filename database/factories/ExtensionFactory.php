@@ -26,6 +26,7 @@ class ExtensionFactory extends Factory
             'title' => fake()->word,
             'description' => fake()->sentence,
             'content' => fake()->text(500),
+            'use_readme' => false,
             'published' => fake()->boolean,
         ];
     }

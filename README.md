@@ -13,11 +13,11 @@ The app uses [sail](https://laravel.com/docs/11.x/sail) to run in a dockerized e
 
 ### GitHub
 
-To login locally you need to have created an OAuth app in GitHub developer settings with the following:
+You need to create a [GitHub app in the developer settings](https://github.com/settings/apps), you should use the following options:
 
 <table>
     <tr>
-        <th>Application name</th>
+        <th>GitHub App name</th>
         <td>TipTap Extensions (dev)</td>
     </tr>
     <tr>
@@ -25,10 +25,24 @@ To login locally you need to have created an OAuth app in GitHub developer setti
         <td>http://localhost</td>
     </tr>
     <tr>
-        <th>Authorization callback UR</th>
+        <th>Callback URL</th>
         <td>http://localhost/auth/callback</td>
     </tr>
+    <tr>
+        <th>Expire user authorization tokens</th>
+        <td>No</td>
+    </tr>
+    <tr>
+        <th>Request user authorization (OAuth) during installation</th>
+        <td>Yes</td>
+    </tr>
 </table>
+
+You should also enable the following permissions:
+
+`Account > Email addresses` : Read-only
+
+`Account > Starring` : Read and write
 
 You should be given a client ID and secret which needs to be set in your .env:
 

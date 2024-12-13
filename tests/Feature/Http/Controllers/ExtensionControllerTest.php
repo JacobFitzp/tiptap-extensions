@@ -113,7 +113,8 @@ it('can create an extension', function () {
 });
 
 it('can associate tags with extension', function () {
-    $tags = Tag::factory(4)->create();
+    $tags = Tag::factory(4)
+        ->create();
 
     $this->actingAs(User::factory()->create())
         ->post(route('extensions.store'), [

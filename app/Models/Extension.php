@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Events\ExtensionCreated;
 use App\Foundation\Github\Casts\RepositoryCast;
 use App\Foundation\Tags\Concerns\Taggable;
 use App\Models\Concerns\BelongsToUser;
@@ -13,6 +14,10 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Extension extends Model
 {
     use BelongsToUser, HasFactory, Taggable;
+
+    protected $dispatchesEvents = [
+        'created' => ExtensionCreated::class,
+    ];
 
     protected $fillable = [
         'title',
@@ -34,6 +39,7 @@ class Extension extends Model
         return [
             'repository' => RepositoryCast::class,
             'type' => ExtensionType::class,
+            'use_readme' => 'boolean',
             'published' => 'boolean',
         ];
     }

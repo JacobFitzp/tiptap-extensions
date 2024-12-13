@@ -13,7 +13,7 @@ trait Taggable
     public function attachTagsFromRequest(array $tags): void
     {
         foreach ($tags as $tag) {
-            $this->tags()->create([
+            $this->tagged()->create([
                 'tag_id' => $tag['id'],
             ]);
         }
@@ -22,7 +22,7 @@ trait Taggable
     /**
      * Has many tags relationship.
      */
-    public function tags(): MorphMany
+    public function tagged(): MorphMany
     {
         return $this->morphMany(Tagged::class, 'taggable');
     }

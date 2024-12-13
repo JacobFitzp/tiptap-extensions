@@ -7,7 +7,7 @@ use App\Models\Extension;
 it('can create extension tag', function () {
     $extension = Extension::factory()->create();
     $tag = Tag::factory()->create();
-    $extensionTag = $extension->tags()->create([
+    $extensionTag = $extension->tagged()->create([
         'tag_id' => $tag->id,
     ]);
 

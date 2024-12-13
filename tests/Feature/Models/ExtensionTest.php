@@ -1,5 +1,6 @@
 <?php
 
+use App\Events\ExtensionCreated;
 use App\Foundation\Github\Repository;
 use App\Foundation\Tags\Models\Tagged;
 use App\Models\Enums\ExtensionType;
@@ -7,6 +8,7 @@ use App\Models\Extension;
 use App\Models\ExtensionReview;
 use App\Models\ExtensionStar;
 use App\Models\User;
+use Illuminate\Support\Facades\Event;
 
 it('can create extension', function () {
     $user = User::factory()->create();
@@ -58,8 +60,8 @@ it('can get tags relationship', function () {
         'taggable_type' => $extension->getMorphClass(),
     ]);
 
-    expect($extension->tags)->toHaveCount(4)
-        ->and($extension->tags->modelKeys())->toBe($tags->modelKeys());
+    expect($extension->tagged)->toHaveCount(4)
+        ->and($extension->tagged->modelKeys())->toBe($tags->modelKeys());
 });
 
 it('casts type to enum', function () {
@@ -86,4 +88,14 @@ it('casts repository to object', function () {
     expect($extension->repository)->toBeInstanceOf(Repository::class)
         ->and($extension->repository->owner)->toBe('fake')
         ->and($extension->repository->name)->toBe('fake-extension');
+});
+
+it('dispatches created event', function () {
+    Event::fake(ExtensionCreated::class);
+
+    $extension = Extension::factory()->create();
+
+    Event::assertDispatched(ExtensionCreated::class, function (ExtensionCreated $event) use ($extension) {
+        return $event->extension->is($extension);
+    });
 });

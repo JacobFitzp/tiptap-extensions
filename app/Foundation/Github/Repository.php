@@ -4,7 +4,16 @@ namespace App\Foundation\Github;
 
 class Repository
 {
-    public function __construct(public string $owner, public string $name) {}
+    public string $full;
+
+    public string $slug;
+
+    public function __construct(public string $owner, public string $name)
+    {
+        // Include in serialization.
+        $this->full = $this->full();
+        $this->slug = $this->slug();
+    }
 
     public function full(): string
     {

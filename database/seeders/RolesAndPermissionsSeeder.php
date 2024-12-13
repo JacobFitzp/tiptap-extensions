@@ -14,7 +14,7 @@ class RolesAndPermissionsSeeder extends Seeder
         app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
 
         // create permissions
-        Permission::create(['name' => 'delete extension']);
+        Permission::create(['name' => 'moderate extension']);
         Permission::create(['name' => 'ban user']);
 
         // update cache to know about the newly created permissions (required if using WithoutModelEvents in seeders)
@@ -22,7 +22,7 @@ class RolesAndPermissionsSeeder extends Seeder
 
         $role = Role::create(['name' => 'moderator']);
         $role->givePermissionTo([
-            'delete extension',
+            'moderate extension',
             'ban user',
         ]);
     }

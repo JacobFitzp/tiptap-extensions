@@ -33,7 +33,8 @@ class ExtensionController extends Controller
     {
         return Inertia::render('Extensions/Manage', [
             ...$this->extensionFormProps($request->user()),
-            'extension' => $extension,
+            'extension' => $extension
+                ->load('tagged.tag'),
         ]);
     }
 

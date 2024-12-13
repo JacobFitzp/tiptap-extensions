@@ -124,7 +124,7 @@ it('can associate tags with extension', function () {
             'use_readme' => false,
             'content' => 'Test extension',
             'type' => ExtensionType::PROJECT->value,
-            'tags' => $tags->toArray(),
+            'tags' => $tags->modelKeys(),
         ])
         ->assertRedirectToRoute('extensions.manage', 'fake-fake-extension');
 

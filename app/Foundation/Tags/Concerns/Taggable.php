@@ -13,9 +13,7 @@ trait Taggable
     public function attachTagsFromRequest(array $tags): void
     {
         foreach ($tags as $tag) {
-            $this->tagged()->create([
-                'tag_id' => $tag['id'],
-            ]);
+            $this->tagged()->create(['tag_id' => $tag]);
         }
     }
 

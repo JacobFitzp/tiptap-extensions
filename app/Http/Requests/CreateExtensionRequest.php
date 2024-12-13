@@ -19,7 +19,6 @@ class CreateExtensionRequest extends FormRequest
             'use_readme' => 'boolean',
             'content' => 'required_if_declined:use_readme',
             'tags' => 'array|max:5',
-            'tags.*.id' => 'required|exists:tags',
         ];
     }
 

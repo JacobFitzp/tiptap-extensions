@@ -41,9 +41,9 @@
                                                 value="Unpublished"
                                             />
                                             <Tag
-                                                v-for="tag in item.tags"
-                                                :key="tag.id"
-                                                :value="tag.tag.label"
+                                                v-for="tagged in item.tagged"
+                                                :key="tagged.id"
+                                                :value="tagged.tag.label"
                                                 severity="secondary"
                                             />
                                         </div>

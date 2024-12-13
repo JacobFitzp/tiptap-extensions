@@ -18,7 +18,7 @@ class ProfileController extends Controller
             'extensions' => $request->user()
                 ->extensions()
                 ->latest()
-                ->with(['tagged.tags', 'stars', 'reviews'])
+                ->with(['tagged.tag', 'stars', 'reviews'])
                 ->get(),
         ]);
     }

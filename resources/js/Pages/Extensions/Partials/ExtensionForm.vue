@@ -108,7 +108,7 @@
                 display="chip"
                 :options="tags"
                 optionLabel="label"
-                optionValue="slug"
+                optionValue="id"
                 placeholder="Select up to 5 tags"
                 :maxSelectedLabels="5"
                 class="w-full"
@@ -164,7 +164,9 @@ const form = useForm({
     description: props.extension.description || '',
     use_readme: props.extension.use_readme || true,
     content: props.extension.content || '',
-    tags: props.extension.tags || [],
+    tags: props.extension?.tagged
+        ? props.extension.tagged.map((tagged) => tagged.tag.id)
+        : [],
 });
 
 // Map repository options.

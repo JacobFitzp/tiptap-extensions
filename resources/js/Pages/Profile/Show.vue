@@ -21,12 +21,15 @@
                                             {{ item.title }}
                                         </h3>
                                         <p
-                                            class="flex items-center gap-1 text-gray-500"
+                                            class="flex items-center gap-1 text-sm text-gray-500"
                                         >
                                             <i class="pi pi-github"></i>
                                             {{ item.repository.owner }}/{{
                                                 item.repository.name
                                             }}
+                                        </p>
+                                        <p class="mt-2">
+                                            {{ item.description }}
                                         </p>
                                         <div class="mt-2 flex gap-1">
                                             <Tag

@@ -1,7 +1,6 @@
 ## TipTap Extensions
 
 ![GitHub Pint Action Status](https://img.shields.io/github/actions/workflow/status/jacobfitzp/tiptap-extensions/pint.yml?branch=main&label=pint&style=flat-square)
-![GitHub Larastan Action Status](https://img.shields.io/github/actions/workflow/status/jacobfitzp/tiptap-extensions/larastan.yml?branch=main&label=larastan&style=flat-square)
 ![GitHub Pest Action Status](https://img.shields.io/github/actions/workflow/status/jacobfitzp/tiptap-extensions/pest.yml?branch=main&label=pest&style=flat-square)
 ![GitHub Prettier Action Status](https://img.shields.io/github/actions/workflow/status/jacobfitzp/tiptap-extensions/prettier.yml?branch=main&label=prettier&style=flat-square)
 
@@ -10,6 +9,8 @@
 ### Sail
 
 The app uses [sail](https://laravel.com/docs/11.x/sail) to run in a dockerized environment, you need to have [Docker](https://www.docker.com/) installed and running on your machine.
+
+Its also worth aliasing `sail` to `vendor/bin/sail`.
 
 ### GitHub
 
@@ -53,8 +54,6 @@ GITHUB_CLIENT_SECRET=yourClientSecret
 
 ## Setup
 
-In this example `sail` is an alias of `./vendor/bin/sail`
-
 ```shell
 # Copy the example environment file
 cp .env.example .env
@@ -88,14 +87,13 @@ Making sure to use the email address associated with your account.
 
 ## Contribution
 
+This application is built using the **VILT** stack (Vue, Inertia, Tailwind, and Laravel).
+
 ### Commands
 
 There are a few composer commands you can use to make life easier:
 
-`composer test` - Runs Pest test suite.
+- `composer test`: Runs Pest test suite.
+- `composer fix`: Runs Pint and Prettier
 
-`composer analyse` - Runs Larastan / PHPStan analysis
-
-`composer fix` - Runs Pint and Prettier
-
-You should run all 3 of these commands before commiting any changes.
+Run these commands before commiting any changes, this helps to ensure they will pass the automated checks.

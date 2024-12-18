@@ -11,7 +11,9 @@ trait InteractsWithExtensionForm
     {
         return [
             'tags' => Tag::all(),
-            'repositories' => $user->github()->me()->repositories('maintainer'),
+            'repositories' => $user->github()
+                ->me()
+                ->repositories('maintainer'),
         ];
     }
 }

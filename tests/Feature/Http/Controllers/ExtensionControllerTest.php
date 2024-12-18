@@ -4,6 +4,7 @@ use App\Foundation\Tags\Models\Tag;
 use App\Models\Enums\ExtensionType;
 use App\Models\Extension;
 use App\Models\User;
+use Inertia\Testing\AssertableInertia;
 
 $routes = [
     'extensions.submit' => [
@@ -28,6 +29,17 @@ it('requires login', function (Closure $route, string $method, ?Closure $setup =
     $this->$method($route())
         ->assertRedirect('login');
 })->with($routes);
+
+it('renders submission page', function () {
+    $this->actingAs(User::factory()->create())
+        ->get(route('extensions.submit'))
+        ->assertOk()
+        ->assertInertia(function (AssertableInertia $page) {
+            // todo: Strengthen tests - Make sure repositories and tags are passed.
+            return $page
+                ->component('Extensions/Submit');
+        });
+});
 
 it('validates create extension request', function (
     array $payload,

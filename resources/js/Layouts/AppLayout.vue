@@ -4,7 +4,17 @@
         <slot name="head" />
     </Head>
     <div class="pb-6">
-        <div class="mx-auto my-6 max-w-5xl">
+        <div class="mx-auto my-6 max-w-6xl px-4">
+            <Message
+                closable
+                v-if="!Array.isArray($page.props.message)"
+                :severity="$page.props.message.severity || 'info'"
+                :icon="$page.props.message.icon || ''"
+                class="mb-6"
+            >
+                {{ $page.props.message.content }}
+            </Message>
+
             <Menubar :model="items">
                 <template #start>
                     <img alt="" width="35" height="35" src="/assets/logo.svg" />
@@ -46,12 +56,26 @@
         </div>
 
         <Container v-if="header" class="mb-6">
-            <h1 class="text-2xl font-bold">{{ header }}</h1>
-            <Breadcrumb
-                v-if="breadcrumbs"
-                :home="{ icon: 'pi pi-home' }"
-                :model="breadcrumbs"
-            />
+            <div>
+                <h1 class="text-2xl font-bold">{{ header }}</h1>
+                <Breadcrumb
+                    v-if="breadcrumbs"
+                    :home="{ label: 'Home', url: route('home') }"
+                    :model="breadcrumbs"
+                    class="mt-2"
+                >
+                    <template #item="{ item }">
+                        <Link
+                            class="text-gray-600"
+                            :class="{ 'font-bold': item.current }"
+                            :href="item.url"
+                        >
+                            {{ item.label }}
+                        </Link>
+                    </template>
+                    <template #separator> / </template>
+                </Breadcrumb>
+            </div>
         </Container>
 
         <slot />
@@ -60,8 +84,16 @@
 
 <script setup>
 import Container from '@/Components/Container.vue';
-import { Head } from '@inertiajs/vue3';
-import { Avatar, Breadcrumb, Button, InputText, Menu, Menubar } from 'primevue';
+import { Head, Link } from '@inertiajs/vue3';
+import {
+    Avatar,
+    Breadcrumb,
+    Button,
+    InputText,
+    Menu,
+    Menubar,
+    Message,
+} from 'primevue';
 import { ref } from 'vue';
 
 defineProps({

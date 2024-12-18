@@ -116,7 +116,11 @@
             <InputError :error="form.errors.tags" />
         </div>
 
-        <Button @click="$emit('submit', form)">{{ buttonLabel }}</Button>
+        <Button
+            @click="$emit('submit', form)"
+            :label="buttonLabel"
+            icon="pi pi-save"
+        />
     </form>
 </template>
 

@@ -1,5 +1,5 @@
 .p-message {
-    @apply rounded-md outline outline-1;
+    @apply rounded-md;
 }
 
 .p-message-content {

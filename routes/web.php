@@ -31,8 +31,12 @@ Route::middleware('auth')->group(function () {
     Route::get('extensions/submit', [ExtensionController::class, 'submit'])
         ->name('extensions.submit');
     Route::post('extensions/submit', [ExtensionController::class, 'store'])
+        ->can('create,extension')
         ->name('extensions.store');
     Route::get('extensions/{extension:slug}/manage', [ExtensionController::class, 'manage'])
         ->can('update,extension')
         ->name('extensions.manage');
+    Route::patch('extensions/{extension:slug}/manage', [ExtensionController::class, 'update'])
+        ->can('update,extension')
+        ->name('extensions.update');
 });

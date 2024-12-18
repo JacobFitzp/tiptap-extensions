@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Foundation\Github\Repository;
 use App\Http\Controllers\Concerns\InteractsWithExtensionForm;
 use App\Http\Requests\CreateExtensionRequest;
+use App\Http\Requests\UpdateExtensionRequest;
 use App\Models\Extension;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -49,28 +50,49 @@ class ExtensionController extends Controller
         $extension = $request->user()
             ->extensions()
             ->create([
-                ...$request->only([
-                    'title',
-                    'description',
-                    'repository',
-                    'type',
-                    'use_readme',
-                ]),
+                ...$request->except(['tags']),
                 // Generate slug using repository
                 'slug' => $repository->slug(),
-                // Include content if not using readme
-                ...$request->boolean('use_readme', true)
-                    ? []
-                    : ['content' => $request->validated('content')],
             ]);
 
         // Attach tags to the extension.
-        $extension->attachTagsFromRequest(
+        $extension->attachTags(
             $request->validated('tags', [])
         );
 
         // Redirect to the extension management page.
         return redirect()
-            ->route('extensions.manage', $extension->slug);
+            ->route('extensions.manage', $extension->slug)
+            ->withMessage('Extension created successfully - Please review below and publish.');
+    }
+
+    /**
+     * Update existing extension.
+     */
+    public function update(UpdateExtensionRequest $request, Extension $extension): RedirectResponse
+    {
+        $extension->update($request->except(['tags']));
+
+        // Delete and re-attach tags.
+        if ($request->has('tags')) {
+            $extension->tagged()->delete();
+            $extension->attachTags($request->validated('tags', []));
+        }
+
+        return redirect()
+            ->route('extensions.update', $extension->slug)
+            ->withMessage('Extension updated successfully.', 'success');
+    }
+
+    /**
+     * Delete an extension.
+     */
+    public function delete(Extension $extension): RedirectResponse
+    {
+        $extension->delete();
+
+        return redirect()
+            ->route('profile.show', $extension->slug)
+            ->withMessage('Extension deleted successfully.', 'success');
     }
 }

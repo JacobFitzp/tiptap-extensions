@@ -10,7 +10,7 @@ trait Taggable
     /**
      * Attach multiple tags from request array.
      */
-    public function attachTagsFromRequest(array $tags): void
+    public function attachTags(array $tags): void
     {
         foreach ($tags as $tag) {
             $this->tagged()->create(['tag_id' => $tag]);

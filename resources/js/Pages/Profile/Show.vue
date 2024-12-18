@@ -1,5 +1,5 @@
 <template>
-    <AppLayout :breadcumb="breadcrumbs" header="Profile" title="Profile">
+    <AppLayout :breadcrumbs="breadcrumbs" header="Profile" title="Profile">
         <Container>
             <div class="space-y-6">
                 <Panel header="My extensions">
@@ -35,8 +35,9 @@
                                             <Tag
                                                 v-if="item.published"
                                                 severity="success"
-                                                >Published</Tag
-                                            >
+                                                icon="pi pi-eye"
+                                                value="Published"
+                                            />
                                             <Tag
                                                 v-else
                                                 severity="warn"
@@ -136,10 +137,5 @@ const getSlug = (extension) => {
     return `${extension.repository.owner}-${extension.repository.name}`;
 };
 
-const breadcrumbs = ref([
-    {
-        label: 'Profile',
-        url: route('profile.show'),
-    },
-]);
+const breadcrumbs = [{ label: 'Profile', current: true }];
 </script>

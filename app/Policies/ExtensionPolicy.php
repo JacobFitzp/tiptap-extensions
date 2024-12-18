@@ -12,7 +12,7 @@ class ExtensionPolicy
      */
     public function viewAny(User $user): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -20,7 +20,7 @@ class ExtensionPolicy
      */
     public function view(User $user, Extension $extension): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -28,7 +28,7 @@ class ExtensionPolicy
      */
     public function create(User $user): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -44,7 +44,7 @@ class ExtensionPolicy
      */
     public function delete(User $user, Extension $extension): bool
     {
-        return $user->can('moderate extension') || $user->id === $extension->user_id;
+        return $this->update($user, $extension);
     }
 
     /**

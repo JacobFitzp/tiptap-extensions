@@ -1,5 +1,5 @@
 .p-breadcrumb {
-    @apply overflow-x-auto bg-surface-0 p-4 dark:bg-surface-900;
+    @apply overflow-x-auto;
 }
 
 .p-breadcrumb-list {
@@ -19,7 +19,7 @@
 }
 
 .p-breadcrumb-item-link {
-    @apply flex items-center gap-2 rounded-md text-surface-500 no-underline transition-colors duration-200 focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-2 focus-visible:outline-primary dark:text-surface-400;
+    @apply flex items-center gap-2 rounded-md text-surface-600 no-underline transition-colors duration-200 focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-2 focus-visible:outline-primary dark:text-surface-400;
 }
 
 .p-breadcrumb-item-link:hover .p-breadcrumb-item-label {
